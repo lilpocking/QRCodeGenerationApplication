@@ -1,0 +1,11 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="GlobalFontColor">#EEEEEE</SolidColorBrush>
+    <SolidColorBrush x:Key="GlobalControlColor">#393E46</SolidColorBrush>
+    <SolidColorBrush x:Key="GlobalBackgroundColor">#222831</SolidColorBrush>
+    <Thickness x:Key="GlobalMargin">10</Thickness>
+    <Thickness x:Key="GlobalMiniMargin">10, 5</Thickness>
+    <Thickness x:Key="GlobalPadding">10</Thickness>
+    <CornerRadius x:Key="GlobalCornerRadius">10</CornerRadius>
+</ResourceDictionary>
