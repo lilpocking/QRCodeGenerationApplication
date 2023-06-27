@@ -14,16 +14,15 @@
     </Page.DataContext>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource GlobalBackgroundColor}">
         <Grid.ColumnDefinitions>
-
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="40*"/>
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="200*" MinHeight="200"/>
-                <RowDefinition Height="100*" MinHeight="125"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="200*" SharedSizeGroup="CenterElements"/>
+                <RowDefinition Height="100*" MinHeight="150" SharedSizeGroup="CenterElements"/>
+                <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
             </Grid.RowDefinitions>
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Text="Введите текст для преобразования:" Margin="{StaticResource GlobalMiniMargin}"/>
             <TextBox FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextToConvert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" BorderThickness="0" Margin="{StaticResource GlobalMiniMargin}" d:Text="Checking" Padding="{StaticResource GlobalPadding}" Foreground="{StaticResource GlobalFontColor}" Background="{StaticResource GlobalControlColor}">
@@ -43,6 +42,15 @@
                             <i:InvokeCommandAction Command="{Binding AddIcon}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <Border.Resources>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Resources>
                     <Border.Background>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding QRCodeIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Border.Background>
@@ -64,45 +72,28 @@
                     <ComboBox SelectedItem="{Binding ECCLevel}" ItemsSource="{Binding GetECCLevels}" HorizontalAlignment="Stretch"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button 
+            <Button 
+                Grid.Row="3"
                 Style="{StaticResource FlatButton}" 
                 Command="{Binding CreateQrCode}"
                 Margin="{StaticResource GlobalMiniMargin}"
                 Padding="{StaticResource GlobalPadding}"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Stretch"
                 >
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{StaticResource CreateIconDrawingImage}" Height="20"/>
-                            <Separator Style="{StaticResource HorizontalItemsSeparator}"/>
-                            <TextBlock Text="Создать QR-код" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <Button 
-                Style="{StaticResource FlatButton}" 
-                Command="{Binding AddIcon}"
-                Margin="{StaticResource GlobalMiniMargin}"
-                Padding="{StaticResource GlobalPadding}"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                >
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{StaticResource CreateIconDrawingImage}" Height="20"/>
-                            <Separator Style="{StaticResource HorizontalItemsSeparator}"/>
-                            <TextBlock Text="Добавить иконку к QR-коду" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-            </StackPanel>
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CreateIconDrawingImage}" Height="20"/>
+                        <Separator Style="{StaticResource HorizontalItemsSeparator}"/>
+                        <TextBlock Text="Создать QR-код" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="250*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="250*" SharedSizeGroup="CenterElements" />
+                <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="QR-код:" HorizontalAlignment="Center"/>
@@ -127,7 +118,7 @@
                 Padding="{StaticResource GlobalPadding}" 
                 Command="{Binding SaveQrCode}"
                 VerticalAlignment="Center" 
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Stretch"
                 >
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">

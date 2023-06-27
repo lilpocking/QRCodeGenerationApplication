@@ -17,7 +17,6 @@ namespace QRCodeGenerationApplication.Model
         private BitmapImage? _qrCodeIcon = null;
         private QRCodeGenerator.ECCLevel _eccLevel = QRCodeGenerator.ECCLevel.H;
 
-
         private Command? _createQrCode;
         private Command? _saveQrCode;
         private Command? _addIcon;
