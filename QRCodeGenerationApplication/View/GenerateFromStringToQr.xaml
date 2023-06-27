@@ -6,6 +6,7 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:local="clr-namespace:QRCodeGenerationApplication.View"
       xmlns:models="clr-namespace:QRCodeGenerationApplication.Model"
+      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GenerateFromStringToQr" Foreground="{StaticResource GlobalFontColor}">
@@ -68,8 +69,15 @@
                     </Grid>
                 </Border>
                 <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
-                    <TextBlock Text="Уровень ECC:"  HorizontalAlignment="Left" Margin="0 0 0 5"/>
+                    <TextBlock Text="Уровень ECC:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
                     <ComboBox SelectedItem="{Binding ECCLevel}" ItemsSource="{Binding GetECCLevels}" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
+                    <TextBlock Text="Цвет QR-кода" HorizontalAlignment="Center" Margin="10 5 10 5"/>
+                    <TextBlock Text="Светлый цвет:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding LightColorBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Темный цвет:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding DarkColorBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
             <Button 
@@ -97,7 +105,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="QR-код:" HorizontalAlignment="Center"/>
-                <Border CornerRadius="{StaticResource GlobalCornerRadius}" Height="300" Width="300" HorizontalAlignment="Center">
+                <Border CornerRadius="{StaticResource GlobalCornerRadius}" Height="300" Width="300" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
                     <Border.Background>
                         <ImageBrush d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill">
                             <ImageBrush.ImageSource>

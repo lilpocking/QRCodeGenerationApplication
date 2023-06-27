@@ -1,11 +1,14 @@
 ﻿using Microsoft.Win32;
+using QRCodeGenerationApplication.View;
 using QRCoder;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace QRCodeGenerationApplication.Model
@@ -16,6 +19,8 @@ namespace QRCodeGenerationApplication.Model
         private BitmapImage? _qrCode = null;
         private BitmapImage? _qrCodeIcon = null;
         private QRCodeGenerator.ECCLevel _eccLevel = QRCodeGenerator.ECCLevel.H;
+        private System.Windows.Media.Color _lightColorBrush = new System.Windows.Media.Color() { R =255, G =255, B=255 ,A=255};
+        private System.Windows.Media.Color _darkColorBrush = new System.Windows.Media.Color() { R = 0, G = 0, B = 0, A = 255 };
 
         private Command? _createQrCode;
         private Command? _saveQrCode;
@@ -46,6 +51,24 @@ namespace QRCodeGenerationApplication.Model
             get
             {
                 return Enum.GetValues(typeof(QRCodeGenerator.ECCLevel));
+            }
+        }
+        public System.Windows.Media.Color LightColorBrush
+        {
+            get => _lightColorBrush;
+            set
+            {
+                _lightColorBrush = value;
+                OnPropertyChanged();
+            }
+        }
+        public System.Windows.Media.Color DarkColorBrush
+        {
+            get => _darkColorBrush;
+            set
+            {
+                _darkColorBrush = value;
+                OnPropertyChanged();
             }
         }
 
@@ -138,7 +161,6 @@ namespace QRCodeGenerationApplication.Model
                     );
             }
         }
-
         public Command CreateQrCode
         {
             get
@@ -150,14 +172,24 @@ namespace QRCodeGenerationApplication.Model
                 QRCodeData qrCodeData = qrGenerator.CreateQrCode(_textToConvert, this.ECCLevel);
                 QRCode qrCode = new QRCode(qrCodeData);
 
+                System.Drawing.Color LightColor = System.Drawing.Color.FromArgb(
+                    this.LightColorBrush.R,
+                    this.LightColorBrush.G, 
+                    this.LightColorBrush.B);
+
+                System.Drawing.Color DarkColor = System.Drawing.Color.FromArgb(
+                    this.DarkColorBrush.R,
+                    this.DarkColorBrush.G, 
+                    this.DarkColorBrush.B);
+
                 Bitmap qrCodeImage;
                 if (this.QRCodeIcon != null && this.QRCodeIcon.UriSource != null)
                 {
-                    qrCodeImage = qrCode.GetGraphic(20, System.Drawing.Color.Black, System.Drawing.Color.White, icon: new Bitmap(this.QRCodeIcon.UriSource.LocalPath), iconBackgroundColor: System.Drawing.Color.White, iconBorderWidth: 1);
+                    qrCodeImage = qrCode.GetGraphic(20, DarkColor, LightColor, icon: new Bitmap(this.QRCodeIcon.UriSource.LocalPath), iconBackgroundColor: System.Drawing.Color.White, iconBorderWidth: 1);
                 }
                 else
                 {
-                    qrCodeImage = qrCode.GetGraphic(20);
+                    qrCodeImage = qrCode.GetGraphic(20, DarkColor, LightColor, drawQuietZones: true);
                 }
 
                 using (MemoryStream memory = new MemoryStream())
@@ -176,9 +208,7 @@ namespace QRCodeGenerationApplication.Model
             obj => { return !string.IsNullOrEmpty(_textToConvert); }
             ));
             }
-
         }
-
         public Visibility NoneIconVisibility
         {
             get
@@ -193,6 +223,7 @@ namespace QRCodeGenerationApplication.Model
                 }
             }
         }
+
 
         public void IconDrop(object sender, System.Windows.DragEventArgs e)
         {
