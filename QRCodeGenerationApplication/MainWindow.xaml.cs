@@ -23,6 +23,7 @@ namespace QRCodeGenerationApplication
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new QRCodeGenerationApplication.View.GenerateFromStringToQr());
         }
     }
 }

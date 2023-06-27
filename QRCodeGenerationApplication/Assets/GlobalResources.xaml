@@ -4,6 +4,7 @@
     <SolidColorBrush x:Key="GlobalFontColor">#EEEEEE</SolidColorBrush>
     <SolidColorBrush x:Key="GlobalControlColor">#393E46</SolidColorBrush>
     <SolidColorBrush x:Key="GlobalBackgroundColor">#222831</SolidColorBrush>
+    <SolidColorBrush x:Key="GlobalIconsColor">#393E46</SolidColorBrush>
     <Thickness x:Key="GlobalMargin">10</Thickness>
     <Thickness x:Key="GlobalMiniMargin">10, 5</Thickness>
     <Thickness x:Key="GlobalPadding">10</Thickness>

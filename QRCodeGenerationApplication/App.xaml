@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/Assets/GlobalResources.xaml"/>
                 <ResourceDictionary Source="/Assets/GlobalStyle.xaml"/>
                 <ResourceDictionary Source="/Assets/CreateIcon.xaml"/>
+                <ResourceDictionary Source="/Assets/UploadIcon.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

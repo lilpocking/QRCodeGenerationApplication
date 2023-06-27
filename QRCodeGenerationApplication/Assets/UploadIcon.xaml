@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Geometry x:Key="UploadIconGeometry">F1 M24,24z M0,0z M9,16L15,16 15,10 19,10 12,3 5,10 9,10z M5,18L19,18 19,20 5,20z</Geometry>
+    <DrawingGroup x:Key="UploadIconDrawingGroup" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+        <GeometryDrawing Brush="{StaticResource GlobalIconsColor}" Geometry="{StaticResource UploadIconGeometry}" />
+    </DrawingGroup>
+    <DrawingImage x:Key="UploadIconDrawingImage" Drawing="{StaticResource UploadIconDrawingGroup}" />
+</ResourceDictionary>

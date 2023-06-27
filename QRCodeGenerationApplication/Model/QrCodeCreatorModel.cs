@@ -16,6 +16,8 @@ namespace QRCodeGenerationApplication.Model
         private BitmapImage? _qrCode = null;
         private BitmapImage? _qrCodeIcon = null;
         private QRCodeGenerator.ECCLevel _eccLevel = QRCodeGenerator.ECCLevel.H;
+
+
         private Command? _createQrCode;
         private Command? _saveQrCode;
         private Command? _addIcon;
@@ -53,7 +55,10 @@ namespace QRCodeGenerationApplication.Model
             get
             {
                 if (_qrCode == null)
+                {
                     return null;
+                }
+
                 return _qrCode;
             }
             set
@@ -67,13 +72,16 @@ namespace QRCodeGenerationApplication.Model
             get
             {
                 if (_qrCodeIcon == null)
+                {
                     return null;
+                }
                 return _qrCodeIcon;
             }
             set
             {
                 _qrCodeIcon = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(this.NoneIconVisibility));
             }
         }
 
@@ -83,7 +91,8 @@ namespace QRCodeGenerationApplication.Model
             {
                 return _saveQrCode ?? (
                     _saveQrCode = new Command(
-                        obj => {
+                        obj =>
+                        {
                             SaveFileDialog saveFileDialog = new SaveFileDialog()
                             {
                                 Filter =
@@ -110,8 +119,8 @@ namespace QRCodeGenerationApplication.Model
             {
                 return _addIcon ?? (
                     _addIcon = new Command(
-                        obj => {
-                            obj.GetType();
+                        obj =>
+                        {
                             OpenFileDialog openFileDialog = new OpenFileDialog()
                             {
                                 Filter =
@@ -143,7 +152,7 @@ namespace QRCodeGenerationApplication.Model
                 QRCode qrCode = new QRCode(qrCodeData);
 
                 Bitmap qrCodeImage;
-                if (this.QRCodeIcon != null)
+                if (this.QRCodeIcon != null && this.QRCodeIcon.UriSource != null)
                 {
                     qrCodeImage = qrCode.GetGraphic(20, System.Drawing.Color.Black, System.Drawing.Color.White, icon: new Bitmap(this.QRCodeIcon.UriSource.LocalPath), iconBackgroundColor: System.Drawing.Color.White, iconBorderWidth: 1);
                 }
@@ -151,9 +160,6 @@ namespace QRCodeGenerationApplication.Model
                 {
                     qrCodeImage = qrCode.GetGraphic(20);
                 }
-
-                //Bitmap qrCodeImage = qrCode.GetGraphic(20);
-                //Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, icon: new Bitmap("logo.png"), iconBackgroundColor: Color.White, iconBorderWidth: 10);
 
                 using (MemoryStream memory = new MemoryStream())
                 {
@@ -173,6 +179,22 @@ namespace QRCodeGenerationApplication.Model
             }
 
         }
+
+        public Visibility NoneIconVisibility
+        {
+            get
+            {
+                if(QRCodeIcon == null)
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+        }
+
         public void IconDrop(object sender, System.Windows.DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -185,11 +207,6 @@ namespace QRCodeGenerationApplication.Model
                 }
             }
         }
-        /*
-        public void ImageFailedOrNull(object sender, ExceptionRoutedEventArgs e)
-        {
-            QRCodeIcon = new BitmapImage(new Uri(_textToConvert));
-        }*/
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
