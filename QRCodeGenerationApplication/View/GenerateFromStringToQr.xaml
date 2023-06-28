@@ -73,10 +73,10 @@
                     <ComboBox SelectedItem="{Binding ECCLevel}" ItemsSource="{Binding GetECCLevels}" HorizontalAlignment="Stretch"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
-                    <TextBlock Text="Цвет QR-кода" HorizontalAlignment="Center" Margin="10 5 10 5"/>
-                    <TextBlock Text="Светлый цвет:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
+                    <TextBlock Text="Цвет QR-кода" HorizontalAlignment="Center" Margin="{StaticResource GlobalMiniMargin}"/>
+                    <TextBlock Text="Светлый цвет:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
                     <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding LightColorBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="Темный цвет:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
+                    <TextBlock Text="Темный цвет:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
                     <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding DarkColorBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
@@ -100,27 +100,26 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" SharedSizeGroup="CenterElements" />
                 <RowDefinition Height="250*" SharedSizeGroup="CenterElements" />
                 <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="QR-код:" HorizontalAlignment="Center"/>
-                <Border CornerRadius="{StaticResource GlobalCornerRadius}" Height="300" Width="300" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
-                    <Border.Background>
-                        <ImageBrush d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill">
-                            <ImageBrush.ImageSource>
-                                <Binding UpdateSourceTrigger="PropertyChanged" >
-                                    <Binding.Path>
-                                        QRCodeImage
-                                    </Binding.Path>
-                                </Binding>
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-                    </Border.Background>
-                </Border>
-            </StackPanel>
+            <TextBlock Grid.Row="0" Text="QR-код:" Margin="{StaticResource GlobalMiniMargin}" HorizontalAlignment="Center"/>
+            <Border Grid.Row="1" Margin="{StaticResource GlobalMargin}" CornerRadius="{StaticResource GlobalCornerRadius}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="Auto" Width="{Binding ActualHeight,RelativeSource={RelativeSource Self}}" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
+                <Border.Background>
+                    <ImageBrush d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill">
+                        <ImageBrush.ImageSource>
+                            <Binding UpdateSourceTrigger="PropertyChanged" >
+                                <Binding.Path>
+                                    QRCodeImage
+                                </Binding.Path>
+                            </Binding>
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
+                </Border.Background>
+            </Border>
             <Button 
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Style="{StaticResource FlatButton}" 
                 Margin="{StaticResource GlobalMiniMargin}" 
                 Padding="{StaticResource GlobalPadding}" 

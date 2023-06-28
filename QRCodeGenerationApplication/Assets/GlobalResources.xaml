@@ -7,6 +7,7 @@
     <SolidColorBrush x:Key="GlobalIconsColor">Black</SolidColorBrush>
     <Thickness x:Key="GlobalMargin">10</Thickness>
     <Thickness x:Key="GlobalMiniMargin">10, 5</Thickness>
+    <Thickness x:Key="GlobalVerticalMiniMargin">0, 5</Thickness>
     <Thickness x:Key="GlobalPadding">10</Thickness>
     <CornerRadius x:Key="GlobalCornerRadius">10</CornerRadius>
 </ResourceDictionary>
