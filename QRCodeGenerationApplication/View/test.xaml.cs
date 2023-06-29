@@ -13,18 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QRCodeGenerationApplication
+namespace QRCodeGenerationApplication.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для test.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class test : Page
     {
-        public MainWindow()
+        public test()
         {
             InitializeComponent();
-            //MainFrame.Navigate(new QRCodeGenerationApplication.View.GenerateFromStringToQr());
-            MainFrame.Navigate(new QRCodeGenerationApplication.View.test());
+            this.DataContext = new ViewModel.QRCodeViewModel();
         }
     }
 }

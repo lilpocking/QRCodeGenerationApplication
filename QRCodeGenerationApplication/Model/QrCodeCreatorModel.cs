@@ -85,6 +85,10 @@ namespace QRCodeGenerationApplication.Model
             }
             set
             {
+                if(_qrCode != null)
+                {
+                    GC.SuppressFinalize(_qrCode);
+                }
                 _qrCode = value;
                 OnPropertyChanged();
             }
@@ -103,7 +107,7 @@ namespace QRCodeGenerationApplication.Model
             {
                 _qrCodeIcon = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(this.NoneIconVisibility));
+                OnPropertyChanged(nameof(this.IsQRCodeIconNull));
             }
         }
 
@@ -183,6 +187,7 @@ namespace QRCodeGenerationApplication.Model
                     this.DarkColorBrush.B);
 
                 Bitmap qrCodeImage;
+
                 if (this.QRCodeIcon != null && this.QRCodeIcon.UriSource != null)
                 {
                     qrCodeImage = qrCode.GetGraphic(20, DarkColor, LightColor, icon: new Bitmap(this.QRCodeIcon.UriSource.LocalPath), iconBackgroundColor: System.Drawing.Color.White, iconBorderWidth: 1);
@@ -192,38 +197,16 @@ namespace QRCodeGenerationApplication.Model
                     qrCodeImage = qrCode.GetGraphic(20, DarkColor, LightColor, drawQuietZones: true);
                 }
 
-                using (MemoryStream memory = new MemoryStream())
-                {
-                    qrCodeImage.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memory.Position = 0;
-                    BitmapImage QRCodeImageBitmap = new BitmapImage();
-                    QRCodeImageBitmap.BeginInit();
-                    QRCodeImageBitmap.StreamSource = memory;
-                    QRCodeImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    QRCodeImageBitmap.EndInit();
-                    this.QRCodeImage = QRCodeImageBitmap;
-                }
+                this.QRCodeImage = Internal.ImageConverter.BitmapToBitmapImageConvert(in qrCodeImage);
+
                 qrCodeImage.Dispose();
             },
             obj => { return !string.IsNullOrEmpty(_textToConvert); }
             ));
             }
         }
-        public Visibility NoneIconVisibility
-        {
-            get
-            {
-                if(QRCodeIcon == null)
-                {
-                    return Visibility.Visible;
-                }
-                else
-                {
-                    return Visibility.Collapsed;
-                }
-            }
-        }
-
+        
+        public bool IsQRCodeIconNull => this.QRCodeIcon == null ? true : false;
 
         public void IconDrop(object sender, System.Windows.DragEventArgs e)
         {

@@ -1,0 +1,67 @@
+﻿<Page x:Class="QRCodeGenerationApplication.View.test"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:QRCodeGenerationApplication.View"
+      xmlns:vm="clr-namespace:QRCodeGenerationApplication.ViewModel"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:converter="clr-namespace:QRCodeGenerationApplication.Converters"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="test">
+    <Page.DataContext>
+        <vm:QRCodeViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <converter:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter"/>
+        <sys:Int32 x:Key="Height">200</sys:Int32>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical">
+            <TextBox Grid.Column="0" Text="{Binding QRCode.TextToConvert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" d:Text="Temp" Height="200" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource GlobalControlColor}" Foreground="{StaticResource GlobalFontColor}"/>
+            <Button Grid.Column="0" Content="Create" VerticalAlignment="Bottom" Command="{Binding CreateQrCode}"/>
+            <Border Height="100" Width="100" BorderThickness="2" BorderBrush="{StaticResource GlobalControlColor}" AllowDrop="True" Margin="{StaticResource GlobalMiniMargin}" CornerRadius="{StaticResource GlobalCornerRadius}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Drop">
+                        <i:CallMethodAction MethodName="IconDrop" TargetObject="{Binding}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding AddIcon}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Border.Resources>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Resources>
+                <Border.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="{Binding QRCode.QRCodeIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BitmapToBitmapImageConverter}}"/>
+                </Border.Background>
+                <Grid Margin="{StaticResource GlobalMargin}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200*"/>
+                        <RowDefinition Height="200*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{StaticResource UploadIconDrawingImage}">
+                        <Image.LayoutTransform>
+                            <RotateTransform Angle="180"/>
+                        </Image.LayoutTransform>
+                    </Image>
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Загрузить иконку для QR-кода" TextWrapping="Wrap" TextAlignment="Center"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <Image Grid.Column="1" Source="{Binding QRCode.QRCodeImage, Converter={StaticResource BitmapToBitmapImageConverter}, ConverterParameter={StaticResource Height}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Button Grid.Column="1" Content="Save" VerticalAlignment="Bottom" Command="{Binding SaveQrCode}"/>
+    </Grid>
+</Page>
