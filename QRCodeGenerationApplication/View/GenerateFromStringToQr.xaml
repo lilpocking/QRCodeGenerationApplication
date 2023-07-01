@@ -7,15 +7,18 @@
       xmlns:local="clr-namespace:QRCodeGenerationApplication.View"
       xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" 
       xmlns:models="clr-namespace:QRCodeGenerationApplication.Model"
+      xmlns:vm="clr-namespace:QRCodeGenerationApplication.ViewModel"
       xmlns:converter="clr-namespace:QRCodeGenerationApplication.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GenerateFromStringToQr" Foreground="{StaticResource GlobalFontColor}">
     <Page.DataContext>
-        <models:QrCodeCreatorModel/>
+        <vm:QRCodeViewModel/>
     </Page.DataContext>
     <Page.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converter:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter"/>
+        <converter:ColorConverter x:Key="ColorConverter"/>
     </Page.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource GlobalBackgroundColor}">
         <Grid.ColumnDefinitions>
@@ -30,7 +33,7 @@
                 <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
             </Grid.RowDefinitions>
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Text="Введите текст для преобразования:" Margin="{StaticResource GlobalMiniMargin}"/>
-            <TextBox FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextToConvert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" BorderThickness="0" Margin="{StaticResource GlobalMiniMargin}" d:Text="Checking" Padding="{StaticResource GlobalPadding}" Foreground="{StaticResource GlobalFontColor}" Background="{StaticResource GlobalControlColor}">
+            <TextBox FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding QRCode.TextToConvert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" BorderThickness="0" Margin="{StaticResource GlobalMiniMargin}" d:Text="Checking" Padding="{StaticResource GlobalPadding}" Foreground="{StaticResource GlobalFontColor}" Background="{StaticResource GlobalControlColor}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="{StaticResource GlobalCornerRadius}"/>
@@ -57,9 +60,9 @@
                         </Style>
                     </Border.Resources>
                     <Border.Background>
-                        <ImageBrush Stretch="Uniform" ImageSource="{Binding QRCodeIcon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding QRCode.QRCodeIcon, Converter={StaticResource BitmapToBitmapImageConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Border.Background>
-                    <Grid Margin="{StaticResource GlobalMargin}" Visibility="{Binding IsQRCodeIconNull, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid Margin="{StaticResource GlobalMargin}" Visibility="{Binding QRCode.IsQRCodeIconNull, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200*"/>
                             <RowDefinition Height="200*"/>
@@ -74,14 +77,14 @@
                 </Border>
                 <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
                     <TextBlock Text="Уровень ECC:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
-                    <ComboBox SelectedItem="{Binding ECCLevel}" ItemsSource="{Binding GetECCLevels}" HorizontalAlignment="Stretch"/>
+                    <ComboBox SelectedItem="{Binding QRCode.ECCLevel}" ItemsSource="{Binding QRCode.GetECCLevels}" HorizontalAlignment="Stretch"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
                     <TextBlock Text="Цвет QR-кода" HorizontalAlignment="Center" Margin="{StaticResource GlobalMiniMargin}"/>
                     <TextBlock Text="Светлый цвет:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
-                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding LightColorBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding QRCode.LightColor, Converter={StaticResource ColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Text="Темный цвет:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
-                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding DarkColorBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding QRCode.DarkColor, Converter={StaticResource ColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
             <Button 
@@ -111,15 +114,7 @@
             <TextBlock Grid.Row="0" Text="QR-код:" Margin="{StaticResource GlobalMiniMargin}" HorizontalAlignment="Center"/>
             <Border Grid.Row="1" Margin="{StaticResource GlobalMargin}" CornerRadius="{StaticResource GlobalCornerRadius}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="Auto" Width="{Binding ActualHeight,RelativeSource={RelativeSource Self}}" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
                 <Border.Background>
-                    <ImageBrush d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill">
-                        <ImageBrush.ImageSource>
-                            <Binding UpdateSourceTrigger="PropertyChanged" >
-                                <Binding.Path>
-                                    QRCodeImage
-                                </Binding.Path>
-                            </Binding>
-                        </ImageBrush.ImageSource>
-                    </ImageBrush>
+                    <ImageBrush ImageSource="{Binding QRCode.QRCodeImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BitmapToBitmapImageConverter}}" d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill"/>
                 </Border.Background>
             </Border>
             <Button 

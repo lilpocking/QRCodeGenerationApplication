@@ -30,7 +30,7 @@ namespace QRCodeGenerationApplication.Converters
             if (value.GetType() == typeof(Bitmap))
             {
                 Bitmap bitmap = (Bitmap)value;
-                BitmapImage image = new BitmapImage();
+                BitmapImage? image = null;
 
                 if (parameter != null)
                 {
@@ -39,11 +39,10 @@ namespace QRCodeGenerationApplication.Converters
                     {
                         Internal.ImageConverter.BitmapToBitmapImageConvert(in bitmap, out image, decodeHeight);
                     }
-                } else
+                }
+                else
                     Internal.ImageConverter.BitmapToBitmapImageConvert(in bitmap, out image);
                 
-                
-
                 return image;
             }
             return null;
@@ -51,12 +50,7 @@ namespace QRCodeGenerationApplication.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.GetType() == typeof(BitmapImage))
-            {
-                BitmapImage bitmap = (BitmapImage)value;
-                return Internal.ImageConverter.BitmapImageToBitmap(bitmap);
-            }
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

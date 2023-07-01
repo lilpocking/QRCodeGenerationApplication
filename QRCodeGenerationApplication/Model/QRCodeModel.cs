@@ -96,18 +96,13 @@ namespace QRCodeGenerationApplication.Model
         }
         public Bitmap? QRCodeIcon
         {
-            get
-            {
-                if (_qrCodeIcon == null)
-                {
-                    return null;
-                }
-                return _qrCodeIcon;
-            }
+            get => _qrCodeIcon;
             set
             {
+                if (value == null)
+                    return;
                 if (_qrCodeIcon != null)
-                    GC.SuppressFinalize(_qrCodeIcon);
+                    _qrCodeIcon.Dispose();
                 _qrCodeIcon = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(this.IsQRCodeIconNull));
