@@ -45,7 +45,6 @@ namespace QRCodeGenerationApplication.Model
                 OnPropertyChanged();
             }
         }
-
         public Array GetECCLevels
         {
             get

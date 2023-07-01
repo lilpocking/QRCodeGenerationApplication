@@ -126,7 +126,7 @@ namespace QRCodeGenerationApplication.ViewModel
                         this.QRCode.DarkColor, 
                         this.QRCode.LightColor, 
                         icon: this.QRCode.QRCodeIcon, 
-                        iconBackgroundColor: System.Drawing.Color.White, 
+                        iconBackgroundColor: QRCode.IconBackgroundColor, 
                         iconBorderWidth: 1);
                 }
                 else

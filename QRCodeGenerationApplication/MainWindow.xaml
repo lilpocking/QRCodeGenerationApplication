@@ -33,7 +33,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Создать" Margin="{StaticResource GlobalMargin}" Padding="{StaticResource GlobalPadding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Row="1">
-                <Border BorderBrush="{StaticResource GlobalHighlighting}" BorderThickness="1"/>
+                <Separator Background="{StaticResource GlobalHighlighting}" Margin="0"/>
                 <RadioButton Command="{Binding NavigateToCreateQRCodePage}" IsChecked="True" Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
                     <RadioButton.Content>
                         <StackPanel Orientation="Horizontal">
