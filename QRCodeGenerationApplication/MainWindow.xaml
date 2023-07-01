@@ -3,11 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:QRCodeGenerationApplication"
-        xmlns:view="clr-namespace:QRCodeGenerationApplication.View"
+        xmlns:vm="clr-namespace:QRCodeGenerationApplication.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="{StaticResource GlobalBackgroundColor}">
-    <Grid Margin="{StaticResource GlobalMargin}">
-        <Frame Name="MainFrame"/>
+        Title="MainWindow" Height="450" Width="800" Background="{StaticResource GlobalBackgroundColor}" Foreground="{StaticResource GlobalFontColor}">
+    <Window.DataContext>
+        <vm:NavigationService/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="{StaticResource GlobalPadding}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="MenuText">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="{StaticResource GlobalMiniMargin}"/>
+        </Style>
+        <sys:Double x:Key="HeightOfIconInPanel">50</sys:Double>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="200*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Создать" Margin="{StaticResource GlobalMargin}" Padding="{StaticResource GlobalPadding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="1">
+                <Border BorderBrush="{StaticResource GlobalHighlighting}" BorderThickness="1"/>
+                <RadioButton Command="{Binding NavigateToCreateQRCodePage}" IsChecked="True" Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource QRCodeIconDrawingImage}" Height="{StaticResource HeightOfIconInPanel}"/>
+                            <TextBlock Style="{StaticResource MenuText}" Text="QR-код"/>
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+                <RadioButton Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                    <RadioButton.Content>
+                        <TextBlock Style="{StaticResource MenuText}" Text="WiFi QR-код"/>
+                    </RadioButton.Content>
+                </RadioButton>
+                <RadioButton Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                    <RadioButton.Content>
+                        <TextBlock Style="{StaticResource MenuText}" Text="QR-код"/>
+                    </RadioButton.Content>
+                </RadioButton>
+                <RadioButton Command="{Binding NavigateToTestPage}" Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                    <RadioButton.Content>
+                        <TextBlock Style="{StaticResource MenuText}" Text="Test"/>
+                    </RadioButton.Content>
+                </RadioButton>
+                
+            </StackPanel>
+        </Grid>
+        <Frame Grid.Column="1" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" Name="MainFrame" Margin="{StaticResource GlobalMargin}" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="/Assets/Icons.xaml"/>
                 <ResourceDictionary Source="/Assets/CreateIcon.xaml"/>
                 <ResourceDictionary Source="/Assets/UploadIcon.xaml"/>
+                <ResourceDictionary Source="/Assets/QRCodeIcon.xaml"/>
+                <ResourceDictionary Source="/Assets/RadioButtonTemplateStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

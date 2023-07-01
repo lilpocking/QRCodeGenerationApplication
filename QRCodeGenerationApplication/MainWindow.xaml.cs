@@ -23,8 +23,13 @@ namespace QRCodeGenerationApplication
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            ViewModel.NavigationService navigationService = new ViewModel.NavigationService();
+            navigationService.NavigateToCreateQRCodePage.Execute(null);
+            this.DataContext = navigationService;
             //MainFrame.Navigate(new QRCodeGenerationApplication.View.GenerateFromStringToQr());
-            MainFrame.Navigate(new QRCodeGenerationApplication.View.test());
+            //MainFrame.Content = new QRCodeGenerationApplication.View.GenerateFromStringToQr();
+            //MainFrame.Navigate(new QRCodeGenerationApplication.View.test());
         }
     }
 }
