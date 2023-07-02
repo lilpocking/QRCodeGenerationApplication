@@ -33,7 +33,7 @@
                 <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
             </Grid.RowDefinitions>
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Text="Введите текст для преобразования:" Margin="{StaticResource GlobalMiniMargin}"/>
-            <TextBox FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding QRCode.TextToConvert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" BorderThickness="0" Margin="{StaticResource GlobalMiniMargin}" d:Text="Checking" Padding="{StaticResource GlobalPadding}" Foreground="{StaticResource GlobalFontColor}" Background="{StaticResource GlobalControlColor}">
+            <TextBox TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding QRCode.TextToConvert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" BorderThickness="0" Margin="{StaticResource GlobalMiniMargin}" d:Text="Checking" Padding="{StaticResource GlobalPadding}" Foreground="{StaticResource GlobalFontColor}" Background="{StaticResource GlobalControlColor}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="{StaticResource GlobalCornerRadius}"/>
@@ -76,8 +76,10 @@
                     </Grid>
                 </Border>
                 <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
-                    <TextBlock Text="Уровень ECC:"  HorizontalAlignment="Left" Margin="0 5 0 5"/>
+                    <TextBlock Text="Уровень ECC:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
                     <ComboBox SelectedItem="{Binding QRCode.ECCLevel}" ItemsSource="{Binding QRCode.GetECCLevels}" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="Цвет фона иконки:" HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding QRCode.IconBackgroundColor, Converter={StaticResource ColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
                     <TextBlock Text="Цвет QR-кода" HorizontalAlignment="Center" Margin="{StaticResource GlobalMiniMargin}"/>

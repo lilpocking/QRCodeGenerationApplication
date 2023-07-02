@@ -1,14 +1,11 @@
 ﻿using Microsoft.Win32;
-using QRCodeGenerationApplication.View;
 using QRCoder;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace QRCodeGenerationApplication.Model
