@@ -13,8 +13,8 @@ namespace QRCodeGenerationApplication.ViewModel
     class NavigationService : INotifyPropertyChanged
     {
         private object _contentOfPage = new object();
-        private View.GenerateFromStringToQr? _createQrCodePage;
-        private View.test? _createTestPage;
+        private ViewModel.GenerateFromStringToQr? _createQrCodePage;
+        private ViewModel.test? _createTestPage;
 
         private Command? _navigateToCreateQRCodePage;
         private Command? _navigateToTestPage;
@@ -36,7 +36,7 @@ namespace QRCodeGenerationApplication.ViewModel
                     obj =>
                     {
                         this.Content = _createQrCodePage ?? (
-                        _createQrCodePage = new View.GenerateFromStringToQr()
+                        _createQrCodePage = new ViewModel.GenerateFromStringToQr()
                         );
                     }
             ));
@@ -48,7 +48,7 @@ namespace QRCodeGenerationApplication.ViewModel
                     obj =>
                     {
                         this.Content = _createTestPage ?? (
-                        _createTestPage = new View.test()
+                        _createTestPage = new ViewModel.test()
                         );
                     }
             ));

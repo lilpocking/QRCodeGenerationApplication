@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QRCodeGenerationApplication.View
+namespace QRCodeGenerationApplication.ViewModel
 {
     /// <summary>
     /// Логика взаимодействия для test.xaml

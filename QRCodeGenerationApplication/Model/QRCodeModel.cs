@@ -28,5 +28,17 @@ namespace QRCodeGenerationApplication.Model
         }
 
         #endregion
+
+        #region OverridePublicFields
+
+        public override string Payload
+        {
+            get
+            {
+                return TextToConvert;
+            }
+        }
+
+        #endregion
     }
 }

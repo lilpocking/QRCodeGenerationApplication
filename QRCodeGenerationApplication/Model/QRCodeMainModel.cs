@@ -102,6 +102,7 @@ namespace QRCodeGenerationApplication.Model
             }
         }
         public bool IsQRCodeIconNull => this.QRCodeIcon == null ? true : false;
+        public virtual string Payload { get; } = "";
 
         #endregion
 

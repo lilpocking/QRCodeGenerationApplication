@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace QRCodeGenerationApplication.View
+namespace QRCodeGenerationApplication.ViewModel
 {
     public class Command : ICommand
     {

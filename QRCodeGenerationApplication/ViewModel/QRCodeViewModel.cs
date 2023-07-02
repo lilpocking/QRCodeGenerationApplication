@@ -17,15 +17,15 @@ namespace QRCodeGenerationApplication.ViewModel
 {
     public class QRCodeViewModel : INotifyPropertyChanged
     {
-        private QRCodeModel _qrCode = new QRCodeModel();
+        private QRCodeMainModel? _qrCode;
 
         private Command? _createQrCode;
         private Command? _saveQrCode;
         private Command? _addIcon;
 
-        public QRCodeModel QRCode
+        public QRCodeMainModel QRCode
         {
-            get => _qrCode;
+            get => _qrCode ?? (_qrCode = new QRCodeModel());
             set
             {
                 _qrCode = value;
@@ -115,7 +115,7 @@ namespace QRCodeGenerationApplication.ViewModel
             {
                 QRCoder.QRCodeGenerator qrGenerator = new QRCoder.QRCodeGenerator();
                 QRCodeData qrCodeData = qrGenerator.CreateQrCode(
-                    this.QRCode.TextToConvert, 
+                    this.QRCode.Payload, 
                     this.QRCode.ECCLevel);
                 QRCode qrCode = new QRCode(qrCodeData);
 
@@ -138,7 +138,7 @@ namespace QRCodeGenerationApplication.ViewModel
                         drawQuietZones: true);
                 }
             },
-            obj => { return !string.IsNullOrEmpty(this.QRCode.TextToConvert); }
+            obj => { return !string.IsNullOrEmpty(this.QRCode.Payload); }
             ));
             }
         }
