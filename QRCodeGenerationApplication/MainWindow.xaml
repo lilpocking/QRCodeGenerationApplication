@@ -59,12 +59,12 @@
                         </StackPanel>
                     </RadioButton.Content>
                 </RadioButton>
-                <RadioButton Padding="{StaticResource GlobalPadding}" Style="{StaticResource MenuRadioButton}" Foreground="{StaticResource GlobalFontColor}">
+                <RadioButton Style="{StaticResource MenuRadioButton}">
                     <RadioButton.Content>
                         <TextBlock Style="{StaticResource MenuText}" Text="WiFi QR-код"/>
                     </RadioButton.Content>
                 </RadioButton>
-                <RadioButton Command="{Binding NavigateToTestPage}" Style="{StaticResource MenuRadioButton}">
+                <RadioButton Style="{StaticResource MenuRadioButton}">
                     <RadioButton.Content>
                         <TextBlock Style="{StaticResource MenuText}" Text="Test"/>
                     </RadioButton.Content>

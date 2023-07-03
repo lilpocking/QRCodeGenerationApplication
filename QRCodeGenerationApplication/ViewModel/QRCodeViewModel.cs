@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using QRCodeGenerationApplication.Model;
+using QRCoder;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Win32;
-using System.Windows.Media.Imaging;
-using QRCodeGenerationApplication.Model;
-using QRCoder;
 using System.Windows;
 
 namespace QRCodeGenerationApplication.ViewModel

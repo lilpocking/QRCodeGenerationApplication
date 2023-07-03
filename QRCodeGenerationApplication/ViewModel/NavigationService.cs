@@ -1,12 +1,5 @@
-﻿using QRCodeGenerationApplication.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QRCodeGenerationApplication.ViewModel
 {
@@ -15,11 +8,9 @@ namespace QRCodeGenerationApplication.ViewModel
         private object _contentOfPage = new object();
         private ViewModel.GenerateFromStringToQr? _createQrCodePage;
         private ViewModel.BookmarkQrCodePage? _bookmarkQrCodePage;
-        private ViewModel.test? _createTestPage;
 
         private Command? _navigateToCreateQRCodePage;
         private Command? _navigateToCreateBookmarkQRCodePage;
-        private Command? _navigateToTestPage;
 
         public object Content
         {
@@ -51,18 +42,6 @@ namespace QRCodeGenerationApplication.ViewModel
                     {
                         this.Content = _bookmarkQrCodePage ?? (
                         _bookmarkQrCodePage = new ViewModel.BookmarkQrCodePage()
-                        );
-                    }
-            ));
-        }
-        public Command NavigateToTestPage
-        {
-            get => _navigateToTestPage ?? (
-                _navigateToTestPage = new Command(
-                    obj =>
-                    {
-                        this.Content = _createTestPage ?? (
-                        _createTestPage = new ViewModel.test()
                         );
                     }
             ));
