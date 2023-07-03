@@ -114,11 +114,20 @@
                 <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="QR-код:" Margin="{StaticResource GlobalMiniMargin}" HorizontalAlignment="Center"/>
-            <Border Grid.Row="1" Margin="{StaticResource GlobalMargin}" CornerRadius="{StaticResource GlobalCornerRadius}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Height="Auto" Width="{Binding ActualHeight,RelativeSource={RelativeSource Self}}" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
-                <Border.Background>
-                    <ImageBrush ImageSource="{Binding QRCode.QRCodeImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BitmapToBitmapImageConverter}}" d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill"/>
-                </Border.Background>
-            </Border>
+            <Viewbox Stretch="Uniform" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Border CornerRadius="{StaticResource GlobalCornerRadius}" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding QRCode.QRCodeImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BitmapToBitmapImageConverter}}" d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill"/>
+                    </Border.Background>
+                    <Border.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="Margin" Value="{StaticResource GlobalMargin}"/>
+                            <Setter Property="Width" Value="200"/>
+                            <Setter Property="Height" Value="200"/>
+                        </Style>
+                    </Border.Resources>
+                </Border>
+            </Viewbox>
             <Button 
                 Grid.Row="2" 
                 Style="{StaticResource FlatButton}" 

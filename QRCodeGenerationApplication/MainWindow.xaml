@@ -16,14 +16,23 @@
             <Setter Property="Padding" Value="{StaticResource GlobalPadding}"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="MenuText">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="Margin" Value="{StaticResource GlobalMiniMargin}"/>
+        </Style>
+        <Style TargetType="RadioButton" x:Key="MenuRadioButton" BasedOn="{StaticResource RadioButtonWithoutCircleStyle}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="{StaticResource GlobalPadding}"/>
+            <Setter Property="Foreground" Value="{StaticResource GlobalFontColor}"/>
         </Style>
         <sys:Double x:Key="HeightOfIconInPanel">50</sys:Double>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="15*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
         <Grid>
@@ -34,30 +43,32 @@
             <TextBlock Text="Создать" Margin="{StaticResource GlobalMargin}" Padding="{StaticResource GlobalPadding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <StackPanel Grid.Row="1">
                 <Separator Background="{StaticResource GlobalHighlighting}" Margin="0"/>
-                <RadioButton Command="{Binding NavigateToCreateQRCodePage}" IsChecked="True" Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                <RadioButton Command="{Binding NavigateToCreateQRCodePage}" IsChecked="True" Style="{StaticResource MenuRadioButton}">
                     <RadioButton.Content>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel>
                             <Image Source="{StaticResource QRCodeIconDrawingImage}" Height="{StaticResource HeightOfIconInPanel}"/>
                             <TextBlock Style="{StaticResource MenuText}" Text="QR-код"/>
                         </StackPanel>
                     </RadioButton.Content>
                 </RadioButton>
-                <RadioButton Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                <RadioButton Command="{Binding NavigateToCreateBookmarkQRCodePage}" Style="{StaticResource MenuRadioButton}">
+                    <RadioButton.Content>
+                        <StackPanel>
+                            <Image Source="{StaticResource BookmarkIconDrawingImage}" Height="{StaticResource HeightOfIconInPanel}"/>
+                            <TextBlock Style="{StaticResource MenuText}" Text="QR-код закладка"/>
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+                <RadioButton Padding="{StaticResource GlobalPadding}" Style="{StaticResource MenuRadioButton}" Foreground="{StaticResource GlobalFontColor}">
                     <RadioButton.Content>
                         <TextBlock Style="{StaticResource MenuText}" Text="WiFi QR-код"/>
                     </RadioButton.Content>
                 </RadioButton>
-                <RadioButton Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
-                    <RadioButton.Content>
-                        <TextBlock Style="{StaticResource MenuText}" Text="QR-код"/>
-                    </RadioButton.Content>
-                </RadioButton>
-                <RadioButton Command="{Binding NavigateToTestPage}" Padding="{StaticResource GlobalPadding}" Style="{StaticResource RadioButtonWithoutCircleStyle}" Foreground="{StaticResource GlobalFontColor}">
+                <RadioButton Command="{Binding NavigateToTestPage}" Style="{StaticResource MenuRadioButton}">
                     <RadioButton.Content>
                         <TextBlock Style="{StaticResource MenuText}" Text="Test"/>
                     </RadioButton.Content>
                 </RadioButton>
-                
             </StackPanel>
         </Grid>
         <Frame Grid.Column="1" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" Name="MainFrame" Margin="{StaticResource GlobalMargin}" NavigationUIVisibility="Hidden"/>

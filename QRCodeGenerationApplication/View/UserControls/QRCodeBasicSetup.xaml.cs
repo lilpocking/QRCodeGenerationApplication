@@ -1,5 +1,4 @@
-﻿using QRCodeGenerationApplication.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QRCodeGenerationApplication.ViewModel
+namespace QRCodeGenerationApplication.View.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для BookmarkQrCodePage.xaml
+    /// Логика взаимодействия для QRCodeBasicSetup.xaml
     /// </summary>
-    public partial class BookmarkQrCodePage : Page
+    public partial class QRCodeBasicSetup : UserControl
     {
-        public BookmarkQrCodePage()
+        public QRCodeBasicSetup()
         {
             InitializeComponent();
-            QRCodeViewModel qRCodeViewModel = new QRCodeViewModel();
-            qRCodeViewModel.QRCode = new BookmarkQRCodeModel();
-            this.DataContext = qRCodeViewModel;
         }
     }
 }

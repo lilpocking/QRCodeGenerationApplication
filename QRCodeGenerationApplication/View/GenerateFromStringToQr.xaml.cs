@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QRCodeGenerationApplication.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,7 +25,9 @@ namespace QRCodeGenerationApplication.ViewModel
         public GenerateFromStringToQr()
         {
             InitializeComponent();
-            
+            QRCodeViewModel qRCodeViewModel = new QRCodeViewModel();
+            qRCodeViewModel.QRCode = new QRCodeModel();
+            this.DataContext = qRCodeViewModel;
         }
     }
 }

@@ -3,12 +3,154 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:local="clr-namespace:QRCodeGenerationApplication.ViewModel"
+      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" 
+      xmlns:models="clr-namespace:QRCodeGenerationApplication.Model"
+      xmlns:vm="clr-namespace:QRCodeGenerationApplication.ViewModel"
+      xmlns:converter="clr-namespace:QRCodeGenerationApplication.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BookmarkQrCodePage">
-
-    <Grid>
-        
+      Title="BookmarkQrCodePage" Foreground="{StaticResource GlobalFontColor}">
+    <Page.DataContext>
+        <vm:QRCodeViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converter:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter"/>
+        <converter:ColorConverter x:Key="ColorConverter"/>
+    </Page.Resources>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource GlobalBackgroundColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="200*" SharedSizeGroup="CenterElements"/>
+                <RowDefinition Height="100*" MinHeight="150" SharedSizeGroup="CenterElements"/>
+                <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
+            </Grid.RowDefinitions>
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Text="Введите текст для преобразования:" Margin="{StaticResource GlobalMiniMargin}"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Ссылка на сайт:" Margin="{StaticResource GlobalMiniMargin}"/>
+                <TextBox Grid.Row="1" Style="{StaticResource FlatTextBox}" Text="{Binding QRCode.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" d:Text="Checking"/>
+                <TextBlock Grid.Row="2" Text="Загаловок:" Margin="{StaticResource GlobalMiniMargin}"/>
+                <TextBox Grid.Row="3" Style="{StaticResource FlatTextBox}" Text="{Binding QRCode.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" d:Text="Checking"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal" MaxHeight="200" Grid.Row="2" VerticalAlignment="Stretch">
+                <Border BorderThickness="2" BorderBrush="{StaticResource GlobalControlColor}" VerticalAlignment="Stretch" AllowDrop="True" Margin="{StaticResource GlobalMiniMargin}" Height="Auto" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{StaticResource GlobalCornerRadius}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <i:CallMethodAction MethodName="IconDrop" TargetObject="{Binding}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding AddIcon}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Border.Resources>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Resources>
+                    <Border.Background>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding QRCode.QRCodeIcon, Converter={StaticResource BitmapToBitmapImageConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Border.Background>
+                    <Grid Margin="{StaticResource GlobalMargin}" Visibility="{Binding QRCode.IsQRCodeIconNull, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200*"/>
+                            <RowDefinition Height="200*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="{StaticResource UploadIconDrawingImage}">
+                            <Image.LayoutTransform>
+                                <RotateTransform Angle="180"/>
+                            </Image.LayoutTransform>
+                        </Image>
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Загрузить иконку для QR-кода" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
+                    <TextBlock Text="Уровень ECC:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
+                    <ComboBox SelectedItem="{Binding QRCode.ECCLevel}" ItemsSource="{Binding QRCode.GetECCLevels}" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="Цвет фона иконки:" HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding QRCode.IconBackgroundColor, Converter={StaticResource ColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="{StaticResource GlobalMiniMargin}">
+                    <TextBlock Text="Цвет QR-кода" HorizontalAlignment="Center" Margin="{StaticResource GlobalMiniMargin}"/>
+                    <TextBlock Text="Светлый цвет:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding QRCode.LightColor, Converter={StaticResource ColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Темный цвет:"  HorizontalAlignment="Left" Margin="{StaticResource GlobalVerticalMiniMargin}"/>
+                    <colorpicker:PortableColorPicker Height="20" SelectedColor="{Binding QRCode.DarkColor, Converter={StaticResource ColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+            <Button 
+                Grid.Row="3"
+                Style="{StaticResource FlatButton}" 
+                Command="{Binding CreateQrCode}"
+                Margin="{StaticResource GlobalMiniMargin}"
+                Padding="{StaticResource GlobalPadding}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Stretch"
+                >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CreateIconDrawingImage}" Height="20"/>
+                        <Separator Style="{StaticResource HorizontalItemsSeparator}"/>
+                        <TextBlock Text="Создать QR-код" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" SharedSizeGroup="CenterElements" />
+                <RowDefinition Height="250*" SharedSizeGroup="CenterElements" />
+                <RowDefinition Height="Auto" SharedSizeGroup="BottomButtons"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="QR-код:" Margin="{StaticResource GlobalMiniMargin}" HorizontalAlignment="Center"/>
+            <Viewbox Stretch="Uniform" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Border CornerRadius="{StaticResource GlobalCornerRadius}" BorderBrush="{StaticResource GlobalControlColor}" BorderThickness="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding QRCode.QRCodeImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BitmapToBitmapImageConverter}}" d:ImageSource="https://vsezhivoe.ru/wp-content/uploads/2021/01/каменная-куница.jpg" Stretch="Fill"/>
+                    </Border.Background>
+                    <Border.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="Margin" Value="{StaticResource GlobalMargin}"/>
+                            <Setter Property="Width" Value="200"/>
+                            <Setter Property="Height" Value="200"/>
+                        </Style>
+                    </Border.Resources>
+                </Border>
+            </Viewbox>
+            <Button 
+                Grid.Row="2" 
+                Style="{StaticResource FlatButton}" 
+                Margin="{StaticResource GlobalMiniMargin}" 
+                Padding="{StaticResource GlobalPadding}" 
+                Command="{Binding SaveQrCode}"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Stretch"
+                >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource SaveIconDrawingImage}" Height="20"/>
+                        <Separator Style="{StaticResource HorizontalItemsSeparator}"/>
+                        <TextBlock Text="Сохранить QR-код" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
     </Grid>
 </Page>
+

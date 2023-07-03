@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Assets/UploadIcon.xaml"/>
                 <ResourceDictionary Source="/Assets/QRCodeIcon.xaml"/>
                 <ResourceDictionary Source="/Assets/RadioButtonTemplateStyle.xaml"/>
+                <ResourceDictionary Source="/Assets/BookmarkIcon.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

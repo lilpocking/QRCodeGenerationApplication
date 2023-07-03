@@ -15,6 +15,20 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="TextBox" x:Key="FlatTextBox">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="{StaticResource GlobalMiniMargin}"/>
+        <Setter Property="Padding" Value="{StaticResource GlobalPadding}"/>
+        <Setter Property="Foreground" Value="{StaticResource GlobalFontColor}"/>
+        <Setter Property="Background" Value="{StaticResource GlobalControlColor}"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="{StaticResource GlobalCornerRadius}"/>
+            </Style>
+        </Style.Resources>
+    </Style>
     <Style TargetType="Separator" x:Key="HorizontalItemsSeparator">
         <Setter Property="Width" Value="10"/>
         <Setter Property="Opacity" Value="0"/>

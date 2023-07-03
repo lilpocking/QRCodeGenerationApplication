@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Geometry x:Key="BookmarkIconGeometry">F1 M96,96z M0,0z M87,96L24,96 24,0 54,0 54,54 63,42 69,42 78,54 78,0 87,0C88.659,0,90,1.344,90,3L90,93C90,94.659,88.659,96,87,96z M6,93L6,3C6,1.344,7.341,0,9,0L18,0 18,96 9,96C7.341,96,6,94.659,6,93z</Geometry>
+  <DrawingGroup x:Key="BookmarkIconDrawingGroup" ClipGeometry="M0,0 V96 H96 V0 H0 Z">
+    <GeometryDrawing Brush="{StaticResource GlobalIconsColor}" Geometry="{StaticResource BookmarkIconGeometry}" />
+  </DrawingGroup>
+  <DrawingImage x:Key="BookmarkIconDrawingImage" Drawing="{StaticResource BookmarkIconDrawingGroup}" />
+</ResourceDictionary>
