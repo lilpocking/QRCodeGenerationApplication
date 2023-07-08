@@ -16,10 +16,10 @@ namespace QRCodeGenerationApplication.Model
         private string _title = "";
         private string _description = "";
         private string _location = "";
-        private DateTime _start;
-        private DateTime _end;
+        private DateTime _start = DateTime.Now;
+        private DateTime _end = DateTime.Now;
         private bool _allDayEvent;
-        private PayloadGenerator.CalendarEvent.EventEncoding _encoding;
+        private PayloadGenerator.CalendarEvent.EventEncoding _encoding = PayloadGenerator.CalendarEvent.EventEncoding.Universal;
 
         #endregion
 

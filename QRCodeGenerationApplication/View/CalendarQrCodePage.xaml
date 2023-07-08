@@ -52,7 +52,7 @@
                             <DatePicker SelectedDate="{Binding QRCode.End, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="{StaticResource GlobalMiniMargin}"/>
                         </StackPanel>
                     </Grid>
-                    <CheckBox IsChecked="{Binding QRCode.AllDayEvent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="События на целый день" Margin="{StaticResource GlobalMiniMargin}"/>
+                    <CheckBox IsChecked="{Binding QRCode.AllDayEvent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Событие на целый день" Foreground="{StaticResource GlobalFontColor}" Margin="{StaticResource GlobalMiniMargin}"/>
                     <ComboBox SelectedItem="{Binding QRCode.Encoding, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding QRCode.GetEventEncodings}" Margin="{StaticResource GlobalMiniMargin}"/>
                 </StackPanel>
             </ScrollViewer>

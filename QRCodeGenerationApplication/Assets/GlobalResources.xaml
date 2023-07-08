@@ -7,7 +7,8 @@
     <SolidColorBrush x:Key="GlobalBackgroundColor">#222831</SolidColorBrush>
     <SolidColorBrush x:Key="GlobalHighlighting">#6666FF</SolidColorBrush>
     <Color x:Key="GlobalHighlightingRGB">#6666FF</Color>
-    <SolidColorBrush x:Key="GlobalIconsColor">Black</SolidColorBrush>
+    <!--<SolidColorBrush x:Key="GlobalIconsColor">Black</SolidColorBrush>-->
+    <SolidColorBrush x:Key="GlobalIconsColor">#D19D00</SolidColorBrush>
     <Thickness x:Key="GlobalMargin">10</Thickness>
     <Thickness x:Key="GlobalMiniMargin">10, 5</Thickness>
     <Thickness x:Key="GlobalVerticalMiniMargin">0, 5</Thickness>

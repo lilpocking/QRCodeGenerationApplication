@@ -28,7 +28,7 @@
             <Setter Property="Padding" Value="{StaticResource GlobalPadding}"/>
             <Setter Property="Foreground" Value="{StaticResource GlobalFontColor}"/>
         </Style>
-        <sys:Double x:Key="HeightOfIconInPanel">50</sys:Double>
+        <sys:Double x:Key="HeightOfIconInPanel">30</sys:Double>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
