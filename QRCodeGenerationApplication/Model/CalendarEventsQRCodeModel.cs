@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,8 +72,11 @@ namespace QRCodeGenerationApplication.Model
             get => _start;
             set
             {
-                if (End > Start)
+                if (End < value)
+                {
+                    errors[nameof(this.Start)] = "Начало события должен быть раньше или проходить в тот же день, чем конец.";
                     return;
+                }
                 _start = value;
                 OnPropertyChanged();
             }
@@ -87,7 +91,10 @@ namespace QRCodeGenerationApplication.Model
             set
             {
                 if (Start > value)
+                {
+                    errors[nameof(this.End)] = "Конец события должен быть позже или проходить в тот же день, чем начало.";
                     return;
+                }
                 _end = value;
                 OnPropertyChanged();
             }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace QRCodeGenerationApplication.Model
 {
-    public abstract class QRCodeMainModel : INotifyPropertyChanged
+    public abstract class QRCodeMainModel : INotifyPropertyChanged, IDataErrorInfo
     {
         #region PrivateFields
 
@@ -103,8 +103,19 @@ namespace QRCodeGenerationApplication.Model
         }
         public bool IsQRCodeIconNull => this.QRCodeIcon == null ? true : false;
         public virtual string Payload { get; } = "";
+        public Dictionary<string, string> errors = new Dictionary<string, string>();
+        public bool IsAllDataValid => !errors.Values.Any(x => x != null);
 
         #endregion
+
+        #region Realization of IDataErrorInfo interface
+
+        public string this[string columnName] => errors.ContainsKey(columnName) ? errors[columnName] : null;
+        public string Error => throw new NotImplementedException();
+
+        #endregion
+
+        #region Realization of INotifyPropertyChanged interface
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -112,5 +123,7 @@ namespace QRCodeGenerationApplication.Model
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+        #endregion
     }
 }

@@ -6,11 +6,10 @@ namespace QRCodeGenerationApplication.ViewModel
     class NavigationService : INotifyPropertyChanged
     {
         private object _contentOfPage = new object();
-        private ViewModel.GenerateFromStringToQr? _createQrCodePage;
-        private ViewModel.BookmarkQrCodePage? _bookmarkQrCodePage;
 
         private Command? _navigateToCreateQRCodePage;
         private Command? _navigateToCreateBookmarkQRCodePage;
+        private Command? _navigateToCreateCalendarQRCodePage;
 
         public object Content
         {
@@ -28,8 +27,8 @@ namespace QRCodeGenerationApplication.ViewModel
                 _navigateToCreateQRCodePage = new Command(
                     obj =>
                     {
-                        this.Content = _createQrCodePage ?? (
-                        _createQrCodePage = new ViewModel.GenerateFromStringToQr()
+                        this.Content = _contentOfPage ?? (
+                        _contentOfPage = new ViewModel.GenerateFromStringToQr()
                         );
                     }
             ));
@@ -40,8 +39,20 @@ namespace QRCodeGenerationApplication.ViewModel
                 _navigateToCreateBookmarkQRCodePage = new Command(
                     obj =>
                     {
-                        this.Content = _bookmarkQrCodePage ?? (
-                        _bookmarkQrCodePage = new ViewModel.BookmarkQrCodePage()
+                        this.Content = _contentOfPage ?? (
+                        _contentOfPage = new ViewModel.BookmarkQrCodePage()
+                        );
+                    }
+            ));
+        }
+        public Command NavigateToCreateCalendarQRCodePage
+        {
+            get => _navigateToCreateCalendarQRCodePage ?? (
+                _navigateToCreateCalendarQRCodePage = new Command(
+                    obj =>
+                    {
+                        this.Content = _contentOfPage ?? (
+                        _contentOfPage = new ViewModel.BookmarkQrCodePage()
                         );
                     }
             ));

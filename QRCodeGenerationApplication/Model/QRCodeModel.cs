@@ -22,7 +22,16 @@ namespace QRCodeGenerationApplication.Model
             get => _textToConvert;
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    errors[nameof(this.TextToConvert)] = "Value can't be null or empty";
+                }
+                else
+                {
+                    errors[nameof(this.TextToConvert)] = "";
+                }
                 _textToConvert = value;
+
                 OnPropertyChanged();
             }
         }
