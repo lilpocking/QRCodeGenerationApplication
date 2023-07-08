@@ -59,9 +59,9 @@
                         </StackPanel>
                     </RadioButton.Content>
                 </RadioButton>
-                <RadioButton Style="{StaticResource MenuRadioButton}">
+                <RadioButton Command="{Binding NavigateToCreateCalendarQRCodePage}" Style="{StaticResource MenuRadioButton}">
                     <RadioButton.Content>
-                        <TextBlock Style="{StaticResource MenuText}" Text="WiFi QR-код"/>
+                        <TextBlock Style="{StaticResource MenuText}" Text="Календарное событие QR-код"/>
                     </RadioButton.Content>
                 </RadioButton>
                 <RadioButton Style="{StaticResource MenuRadioButton}">

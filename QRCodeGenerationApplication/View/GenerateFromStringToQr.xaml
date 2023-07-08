@@ -1,4 +1,4 @@
-﻿<Page x:Class="QRCodeGenerationApplication.ViewModel.GenerateFromStringToQr"
+﻿<Page x:Class="QRCodeGenerationApplication.View.GenerateFromStringToQr"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
